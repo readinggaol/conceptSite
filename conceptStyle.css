@@ -33,7 +33,7 @@ the whole page and holds the header/main/footer inside of it */
 .body{
 	display: grid;
 	grid-template-columns: 1fr;
-	background-color: rgba(13, 64, 80, 0.85);	
+	background-color: rgba(13, 64, 80, 0.45);	
 }
 /* BEFORE is a pseudo-element that creates a kind of ghost element
 By dropping the Z index before the background color and giving the 
@@ -55,6 +55,7 @@ background color an alpha value, you can create the filtered look */
 	margin: 0;
 	padding: 0;
 	color: white;
+	display: absolute;
 	font-size: 5em;
 	background: rgba(0,0,0,0);
 	z-index: 999;
