@@ -14,7 +14,7 @@ the whole page and holds the header/main/footer inside of it */
 	grid-template-rows: 80px 1fr 30px;
 	z-index: -1;
 	--koh-background:  url("koh.jpg");
-	--oberg-background: url("beach.jpg");
+	--oberg-background: url("plitvice.jpg");
 }
 .header{
 	background-color: rgb(26 23 23);
