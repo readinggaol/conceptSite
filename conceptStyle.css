@@ -54,7 +54,7 @@ the whole page and holds the header/main/footer inside of it */
 }
 .mainsplash p{
 	padding: 0;
-	margin: 0;
+	margin: 0 0 .5em 0;
 }
 .hide{
 	opacity: 0;
@@ -79,29 +79,52 @@ the whole page and holds the header/main/footer inside of it */
 	animation-fill-mode: forwards;
 }
 .splash{
+	display: grid;
+	grid-template-columns: 1fr 3fr;
 	background-image: url("koh.jpg");	
-	font-family: Mrs Sheppards, sans-serif;
+	font-family: Open Sans, sans-serif;
 	text-align: center;
 	margin: 0;
 	padding: 0;
 	color: white;
 	background-color: rgba(13, 64, 80, .45);	
-	grid-gap: 1em;
+	font-size: 5em;
+}
+.body div:nth-child(3){
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	background-image: url("koh.jpg");	
+	font-family: Open Sans, sans-serif;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	color: white;
+	background-color: rgba(13, 64, 80, .45);	
 	font-size: 5em;
 }
 .splash p{
 	padding: 0;
 	margin: 0;
 }
-
-#content{
-	display: grid;
-	grid-gap: 5em;
-	grid-template-columns: 1fr 3fr;
-	font-family: Open Sans, sans-serif;
+.splash img{
+	margin: 0;
+	padding: .5em;
+	width: 2em;
+	height: auto;
 }
+
+
 .prose{
-	font-size: 1em;
+	margin-left: 0;
+	padding-left: 1em;
+	text-align: left;
+	font-size: .4em;
+	transition: .8s;
+}
+.prose:hover {
+	background-color: rgb(47, 88, 88);
+	opacity: .55;
+	transform: color;
 }
 
 .footer{
