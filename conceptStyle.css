@@ -32,34 +32,78 @@ the whole page and holds the header/main/footer inside of it */
 }
 .body{
 	display: grid;
+	grid-gap: .5em;
 	grid-template-columns: 1fr;
-	background-color: rgba(13, 64, 80, 0.45);	
+	grid-template-rows: 3fr 1fr 1fr 1fr;
+	overflow: scroll;
+	background-color: rgb(36, 57, 58);
 }
-/* BEFORE is a pseudo-element that creates a kind of ghost element
-By dropping the Z index before the background color and giving the 
-background color an alpha value, you can create the filtered look */
-.body:before{
-	content:  '';
-	background-image: url("koh.jpg");
-	background-size:cover;
-	position: relative;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: -1;
+.body div{
+	background-size: cover;
+	background-attachment: fixed;
 }
-.splash{
+.mainsplash{
+	background-image: url("koh.jpg");	
 	font-family: Mrs Sheppards, sans-serif;
 	text-align: center;
 	margin: 0;
 	padding: 0;
 	color: white;
-	display: absolute;
-	font-size: 5em;
-	background: rgba(0,0,0,0);
-	z-index: 999;
+	font-size: 15em;
+	transition: .8s;
 }
+.mainsplash p{
+	padding: 0;
+	margin: 0;
+}
+.hide{
+	opacity: 0;
+}
+#splashfade{
+	font-size: .25em;
+	font-family: Open Sans, sans-serif;
+	color: white;
+}
+
+@keyframes fadeIn {
+	from{opacity: 0;}
+	to{opacity: 1;}
+}
+.mainsplash:hover{
+	color: darkslategrey;
+	transform: color;
+}
+/* This applies an effect to the NEXT ELEMENT after the first */
+.mainsplash p:hover + .hide{
+	animation: fadeIn 2s;
+	animation-fill-mode: forwards;
+}
+.splash{
+	background-image: url("koh.jpg");	
+	font-family: Mrs Sheppards, sans-serif;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	color: white;
+	background-color: rgba(13, 64, 80, .45);	
+	grid-gap: 1em;
+	font-size: 5em;
+}
+.splash p{
+	padding: 0;
+	margin: 0;
+}
+
+#content{
+	display: grid;
+	grid-gap: 5em;
+	grid-template-columns: 1fr 3fr;
+	font-family: Open Sans, sans-serif;
+}
+.prose{
+	font-size: 1em;
+}
+
 .footer{
 	background-color: rgb(26 23 23);
 }
