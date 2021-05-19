@@ -1,3 +1,5 @@
+
+
 body{
 	margin: 0;
 	overflow: hidden;
@@ -11,6 +13,8 @@ the whole page and holds the header/main/footer inside of it */
 	grid-template-columns: 1fr;
 	grid-template-rows: 80px 1fr 30px;
 	z-index: -1;
+	--koh-background:  url("koh.jpg");
+	--oberg-background: url("beach.jpg");
 }
 .header{
 	background-color: rgb(26 23 23);
@@ -43,14 +47,14 @@ the whole page and holds the header/main/footer inside of it */
 	background-attachment: fixed;
 }
 .mainsplash{
-	background-image: url("koh.jpg");	
+	background-image: var(--koh-background);	
 	font-family: Mrs Sheppards, sans-serif;
 	text-align: center;
 	margin: 0;
 	padding: 0;
 	color: white;
 	font-size: 15em;
-	transition: .8s;
+	transition: .9s;
 }
 .mainsplash p{
 	padding: 0;
@@ -75,13 +79,13 @@ the whole page and holds the header/main/footer inside of it */
 }
 /* This applies an effect to the NEXT ELEMENT after the first */
 .mainsplash p:hover + .hide{
-	animation: fadeIn 2s;
+	animation: fadeIn 1.4s;
 	animation-fill-mode: forwards;
 }
 .splash{
 	display: grid;
 	grid-template-columns: 1fr 3fr;
-	background-image: url("koh.jpg");	
+	background-image: var(--oberg-background);	
 	font-family: Open Sans, sans-serif;
 	text-align: center;
 	margin: 0;
@@ -93,7 +97,7 @@ the whole page and holds the header/main/footer inside of it */
 .body div:nth-child(3){
 	display: grid;
 	grid-template-columns: 3fr 1fr;
-	background-image: url("koh.jpg");	
+	background-image: var(--oberg-background);	
 	font-family: Open Sans, sans-serif;
 	text-align: center;
 	margin: 0;
