@@ -34,6 +34,14 @@ the whole page and holds the header/main/footer inside of it */
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
+#quizdrop{
+	font-family: Open Sans, sans-serif;
+	letter-spacing: 5px;
+	font-size: 2em;
+	margin-top: .1em;
+	margin-left: .3em;
+	color:white;
+}
 .body{
 	display: grid;
 	grid-gap: .5em;
@@ -125,11 +133,11 @@ the whole page and holds the header/main/footer inside of it */
 	font-size: .4em;
 	transition: .8s;
 }
-.prose:hover {
+/*.prose:hover {
 	background-color: rgb(47, 88, 88);
 	opacity: .55;
 	transform: color;
-}
+}*/
 
 .footer{
 	background-color: rgb(26 23 23);
