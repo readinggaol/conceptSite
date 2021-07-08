@@ -14,7 +14,7 @@ the whole page and holds the header/main/footer inside of it */
 	grid-template-rows: 80px 1fr 30px;
 	z-index: -1;
 	--koh-background:  url("koh.jpg");
-	--oberg-background: url("plitvice.jpg");
+	--oberg-background: url("stars.jpg");
 }
 .header{
 	background-color: rgb(26 23 23);
@@ -85,7 +85,7 @@ the whole page and holds the header/main/footer inside of it */
 .splash{
 	display: grid;
 	grid-template-columns: 1fr 3fr;
-	background-image: var(--oberg-background);	
+	background-image: var(--koh-background);	
 	font-family: Open Sans, sans-serif;
 	text-align: center;
 	margin: 0;
@@ -97,6 +97,7 @@ the whole page and holds the header/main/footer inside of it */
 .body div:nth-child(3){
 	display: grid;
 	grid-template-columns: 3fr 1fr;
+	background-color: darkslategray;
 	background-image: var(--oberg-background);	
 	font-family: Open Sans, sans-serif;
 	text-align: center;
