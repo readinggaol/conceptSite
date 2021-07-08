@@ -2,7 +2,6 @@
 
 const $ = (selector) => document.querySelector(selector);
 
-
 const toggleDropdown = () =>{
 	document.getElementById("droplinks").classList.toggle("show");
 }
@@ -10,4 +9,5 @@ const toggleDropdown = () =>{
 
 document.addEventListener("DOMContentLoaded", () => {
 	$("#quizdrop").addEventListener("click", toggleDropdown);
+	$()
 });
