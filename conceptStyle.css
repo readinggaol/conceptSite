@@ -1,5 +1,11 @@
-
-
+@keyframes fadeIn {
+	from{opacity: 0;}
+	to{opacity: 1;}
+}
+@keyframes fadeInPartial {
+	from{opacity: 0;}
+	to{opacity: .85;}
+}
 body{
 	margin: 0;
 	overflow: hidden;
@@ -31,6 +37,7 @@ the whole page and holds the header/main/footer inside of it */
 
 	/* GRADIENT */
 	background: -webkit-linear-gradient(360deg, #84FFC9, #AAB2FF, #ECA0FF);
+	/* background: -webkit-linear-gradient(360deg, #00ffff,#ff5100); */
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
@@ -51,12 +58,25 @@ the whole page and holds the header/main/footer inside of it */
   	z-index: 1;
 }
 .dropcontent a{
+	font-family: Open Sans, sans-serif;
+	letter-spacing: 5px;
+	font-size: 2em;
+	text-decoration: none;
 	display: block;
-	margin-bottom: 1em;
-	text-align: center;
-	border-radius: .5em;
+	margin-left: .2em;
+	line-height: 1.6;
+	color:white;
+	background-color: rgb(26 23 23);
 }
-.show {display:block;}
+.dropcontent a:hover{
+	color: #AAB2FF;
+	animation: fadeIn 1s;
+}
+.show {
+	animation: fadeInPartial .9s;
+	animation-fill-mode: forwards;
+	display:block;
+}
 .body{
 	display: grid;
 	grid-gap: .5em;
@@ -90,11 +110,6 @@ the whole page and holds the header/main/footer inside of it */
 	font-size: .25em;
 	font-family: Open Sans, sans-serif;
 	color: white;
-}
-
-@keyframes fadeIn {
-	from{opacity: 0;}
-	to{opacity: 1;}
 }
 .mainsplash:hover{
 	color: darkslategrey;
@@ -148,12 +163,23 @@ the whole page and holds the header/main/footer inside of it */
 	font-size: .4em;
 	transition: .8s;
 }
-/*.prose:hover {
-	background-color: rgb(47, 88, 88);
-	opacity: .55;
-	transform: color;
-}*/
+.prose:hover {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
 
 .footer{
 	background-color: rgb(26 23 23);
+}
+
+/* || QUIZ SPECIFICS */
+.questionSpace{
+	background-image: var(--koh-background);	
+	font-family: Mrs Sheppards, sans-serif;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	color: white;
+	font-size: 7em;
+	transition: .9s;
 }
