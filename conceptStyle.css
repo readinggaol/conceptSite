@@ -62,6 +62,7 @@ the whole page and holds the header/main/footer inside of it */
 	letter-spacing: 5px;
 	font-size: 2em;
 	text-decoration: none;
+	padding-left: .5em;
 	margin-left: .2em;
 	margin-top: 0;
 	margin-bottom: 0;
@@ -146,7 +147,7 @@ the whole page and holds the header/main/footer inside of it */
 	font-size: 5em;
 }
 .splash p{
-	padding: 0;
+	padding-top: 2em;
 	margin: 0;
 }
 .splash img{
