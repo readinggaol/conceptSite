@@ -49,6 +49,9 @@ the whole page and holds the header/main/footer inside of it */
 	margin-left: .3em;
 	color:white;
 }
+#quizdrop:hover{
+	cursor: pointer;
+}
 .dropcontent{
 	display: none;
   	position: absolute;
@@ -71,6 +74,7 @@ the whole page and holds the header/main/footer inside of it */
 	background-color: rgb(26 23 23);
 }
 .dropcontent p:hover{
+	cursor: pointer;
 	color: #AAB2FF;
 	animation: fadeIn 1s;
 }
@@ -83,7 +87,6 @@ the whole page and holds the header/main/footer inside of it */
 	display: grid;
 	grid-gap: .5em;
 	grid-template-columns: 1fr;
-	grid-template-rows: 3fr 1fr 1fr 1fr;
 	overflow: scroll;
 	background-color: rgb(36, 57, 58);
 }
@@ -136,7 +139,6 @@ the whole page and holds the header/main/footer inside of it */
 }
 .body div:nth-child(3){
 	display: grid;
-	grid-template-columns: 3fr 1fr;
 	background-image: var(--oberg-background);	
 	font-family: Open Sans, sans-serif;
 	text-align: center;
@@ -147,7 +149,8 @@ the whole page and holds the header/main/footer inside of it */
 	font-size: 5em;
 }
 .splash p{
-	padding-top: 2em;
+	padding-top: 1em;
+	padding-bottom: 1em;
 	margin: 0;
 }
 .splash img{
@@ -176,9 +179,13 @@ the whole page and holds the header/main/footer inside of it */
 .questionBox p{
 	padding: 0;
 	margin: 0;
-	text-align: left;
 }
-
+.questionBox p:hover{
+	cursor: pointer;
+	color: #AAB2FF;
+	transition: .5s;
+	text-decoration: underline;
+}
 
 .footer{
 	background-color: rgb(26 23 23);
