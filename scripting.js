@@ -11,15 +11,23 @@ const literature = [];
 
 const history = [];
 
+//---------------
 const toggleDropdown = () =>{
 	document.getElementById("droplinks").classList.toggle("show");
 }
 
+//---------------
+const removeMenu = () =>{
+	document.getElementById("droplinks").classList.remove("show");
+}
+
+//---------------
 const chooseRandomQuestion = (questions) =>{
 	var random = Math.floor(Math.random() * questions.length);
 	return questions[random];
 }
 
+//---------------
 const checkAnswer = (evt, question) =>{
 	var userAnswer = evt.target.textContent;
 	if(question[5] == userAnswer){
@@ -29,7 +37,9 @@ const checkAnswer = (evt, question) =>{
 	}
 }
 
+//---------------
 const setUpQuiz = (evt) =>{
+	removeMenu();
 	let questions = [];
 
 	//CATCH ID OF CLICKED OPTION
@@ -51,18 +61,22 @@ const setUpQuiz = (evt) =>{
 	$("#Q3").textContent = question[3];
 	$("#Q4").textContent = question[4];
 
+	//CREATES EVENT HANDLERS FOR ALL THE ANSWER BOXES
 	const elements = document.querySelectorAll(".questionBox");
 	elements.forEach(element => {
 		element.addEventListener("click", (e) =>{
 			checkAnswer(e, question);
 		});
 	})
-}
 
+
+
+}
 
 document.addEventListener("DOMContentLoaded", () => {
 	$("#quizdrop").addEventListener("click", toggleDropdown);
 	$("#geo").addEventListener("click", setUpQuiz);
 	$("#lit").addEventListener("click", setUpQuiz);
 	$("#his").addEventListener("click", setUpQuiz);
+	
 });

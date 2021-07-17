@@ -83,6 +83,10 @@ the whole page and holds the header/main/footer inside of it */
 	animation-fill-mode: forwards;
 	display:block;
 }
+.shrink{
+	margin: 0;
+	transition: .5s;
+}
 .body{
 	display: grid;
 	grid-gap: .5em;
