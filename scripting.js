@@ -2,6 +2,11 @@
 
 const $ = (selector) => document.querySelector(selector);
 
+let questions = [];
+let question = [];
+let correctAnswers = 0;
+let wrongAnswers = 0;
+
 const geography = [
 	["Which of these African countries has the largest population?", "Egypt", "S. Africa", "Ethiopia", "Nigeria", "Nigeria"],
 	["Which of these countries is NOT a member of the Caucases?", "Armenia", "Georgia", "Bulgaria", "Azerbaijan", "Bulgaria"]
@@ -11,36 +16,61 @@ const literature = [];
 
 const history = [];
 
-//---------------
-const toggleDropdown = () =>{
+//----MANAGING CSS+ELEMENTS
+const toggleDropdown = () => {
 	document.getElementById("droplinks").classList.toggle("show");
 }
 
-//---------------
-const removeMenu = () =>{
+
+const removeMenu = () => {
 	document.getElementById("droplinks").classList.remove("show");
 }
 
-//---------------
-const chooseRandomQuestion = (questions) =>{
+//----MANAGING JS LOGIC
+const chooseRandomQuestion = (questions) => {
 	var random = Math.floor(Math.random() * questions.length);
 	return questions[random];
 }
 
-//---------------
-const checkAnswer = (evt, question) =>{
+
+const checkAnswer = (evt, question) => {
 	var userAnswer = evt.target.textContent;
 	if(question[5] == userAnswer){
-		alert("Correct!");
+		correctAnswers += 1;
 	}else{
-		alert("Wrong!");
+		wrongAnswers += 1;
 	}
+	updateQuestions();
+	updateScore();
+}
+
+
+const updateQuestions = () => {
+	//GENERATE RANDOM NUMBER
+	question = chooseRandomQuestion(questions)
+
+	//WRITE VALUES TO ELEMENTS
+	$("#question").textContent = question[0];
+	$("#Q1").textContent = question[1];
+	$("#Q2").textContent = question[2];
+	$("#Q3").textContent = question[3];
+	$("#Q4").textContent = question[4];
+
+}
+
+const updateScore = () => {
+	let up = "\u25B2";
+	let down = "\u25BC";
+	var scoreString = `${up}: ${correctAnswers}   ${down}: ${wrongAnswers}`;
+	$("#score").textContent = scoreString;
 }
 
 //---------------
-const setUpQuiz = (evt) =>{
+const setUpQuiz = (evt) => {
+	//ZERO EVERYTHING OUT
 	removeMenu();
-	let questions = [];
+	$("#score").textContent = "";
+	questions = [];
 
 	//CATCH ID OF CLICKED OPTION
 	if(evt.target.id == "geo"){
@@ -51,15 +81,7 @@ const setUpQuiz = (evt) =>{
 		questions = history;
 	}
 
-	//GENERATE RANDOM NUMBER
-	var question = chooseRandomQuestion(questions)
-
-	//WRITE VALUES TO ELEMENTS
-	$("#question").textContent = question[0];
-	$("#Q1").textContent = question[1];
-	$("#Q2").textContent = question[2];
-	$("#Q3").textContent = question[3];
-	$("#Q4").textContent = question[4];
+	updateQuestions();
 
 	//CREATES EVENT HANDLERS FOR ALL THE ANSWER BOXES
 	const elements = document.querySelectorAll(".questionBox");
