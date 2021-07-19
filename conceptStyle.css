@@ -123,7 +123,7 @@ the whole page and holds the header/main/footer inside of it */
 }
 .mainsplash p{
 	padding: 0;
-	margin: 0 0 .5em 0;
+	margin: 0;
 }
 .hide{
 	opacity: 0;

@@ -21,29 +21,58 @@ const toggleDropdown = () => {
 	document.getElementById("droplinks").classList.toggle("show");
 }
 
-
 const removeMenu = () => {
 	document.getElementById("droplinks").classList.remove("show");
 }
 
+const removeLuckStamp = () => {
+	$("#splashfade").remove();
+}
+
 //----MANAGING JS LOGIC
 const chooseRandomQuestion = (questions) => {
-	var random = Math.floor(Math.random() * questions.length);
+	let random = Math.floor(Math.random() * questions.length);
 	return questions[random];
 }
 
 
 const checkAnswer = (evt, question) => {
-	var userAnswer = evt.target.textContent;
+	//CHECK USER'S CHOICE AGAINST CORRECT VALUE
+	let userAnswer = evt.target.textContent;
 	if(question[5] == userAnswer){
 		correctAnswers += 1;
 	}else{
 		wrongAnswers += 1;
 	}
-	updateQuestions();
-	updateScore();
+
+	//IF THE QUIZ IS OVER, ROLL THE CREDITS
+	//IF NOT, DO HOUSEKEEPING AND MOVE ON
+	if(correctAnswers + wrongAnswers == 2){
+		cleanUp();
+	}else{
+		removeQuestion(question)
+		updateQuestions();
+		updateScore();
+	}
+
+	
 }
 
+const removeQuestion = (question) => {
+	//FIND THE INDEX OF THE CURRENT QUESTION
+	let index = 0;
+
+	for(let i = 0; i < questions.length; i++){
+		if(questions[i][0] == question[0]){
+			break;
+		}else{
+			index += 1;
+		}
+	}
+
+	//USE INDEX TO REMOVE
+	questions.splice(index, 1);
+}
 
 const updateQuestions = () => {
 	//GENERATE RANDOM NUMBER
@@ -65,12 +94,41 @@ const updateScore = () => {
 	$("#score").textContent = scoreString;
 }
 
+
+const cleanUp = () => {
+	//RECONSTRUCT THE SPLASHFADE
+	const newSplashFade = document.createElement('span');
+	newSplashFade.textContent = "shall we try again?";
+	newSplashFade.setAttribute("id", "splashfade");
+	newSplashFade.setAttribute("class", "hide");
+	$("#mainsplash").appendChild(newSplashFade);
+
+	//PRINT OUT PARTING SCREEN
+	let up = "\u25B2";
+	let down = "\u25BC";
+	let score = `${correctAnswers * 10}%`
+	let partingMessage = `Quiz completed with ${score} correct!`;
+	
+	$("#score").textContent = "";
+	$("#question").textContent = partingMessage;
+	$("#Q1").textContent = up;
+	$("#Q2").textContent = down;
+	$("#Q3").textContent = correctAnswers;
+	$("#Q4").textContent = wrongAnswers;
+
+}
+
+
 //---------------
 const setUpQuiz = (evt) => {
 	//ZERO EVERYTHING OUT
 	removeMenu();
+	removeLuckStamp();
 	$("#score").textContent = "";
 	questions = [];
+	correctAnswers = 0;
+	wrongAnswers = 0;
+	updateScore();
 
 	//CATCH ID OF CLICKED OPTION
 	if(evt.target.id == "geo"){
@@ -95,6 +153,7 @@ const setUpQuiz = (evt) => {
 
 }
 
+//ON PAGE LOAD, GET READY
 document.addEventListener("DOMContentLoaded", () => {
 	$("#quizdrop").addEventListener("click", toggleDropdown);
 	$("#geo").addEventListener("click", setUpQuiz);
