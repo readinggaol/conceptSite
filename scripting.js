@@ -7,14 +7,45 @@ let question = [];
 let correctAnswers = 0;
 let wrongAnswers = 0;
 
+//----QUESTION BANKS
 const geography = [
-	["Which of these African countries has the largest population?", "Egypt", "S. Africa", "Ethiopia", "Nigeria", "Nigeria"],
-	["Which of these countries is NOT a member of the Caucases?", "Armenia", "Georgia", "Bulgaria", "Azerbaijan", "Bulgaria"]
+	["The title of 'most populous African country' belongs to this nation.", "Egypt", "S. Africa", "Ethiopia", "Nigeria", "Nigeria"],
+	["Which of these countries is NOT a member of the Caucases?", "Armenia", "Georgia", "Bulgaria", "Azerbaijan", "Bulgaria"],
+	["The island once called Hispaniola is now home to the Dominican Republic and which other country?", "Haiti", "Jamaica", "Puerto Rico", "Barbados", "Haiti"],
+	["This European mountain range stretches from France to Austria.", "Himalayas", "Andes", "Alps", "Rockies", "Alps"],
+	["While not the largest by surface area, this freshwater lake is the largest by volume.", "Superior", "Baikal", "Chad", "Victoria", "Baikal"],
+	["Pakistan enjoys the fruits of this historically significant river.", "Indus", "Rhine", "Amazon", "Yangtze", "Indus"],
+	["The sandstone formation called Uluru is significant to the aboriginal peoples of this country.", "New Zealand", "Philippines", "Indonesia", "Australia", "Australia"],
+	["Kishasa and Brazzaville sit on opposite sides of this powerful African river.", "Congo", "Nile", "Ubangi", "Zambezi", "Congo"],
+	["Which of these lakes failed to inherit the moniker of 'Great'?", "Superior", "St. Claire", "Michigan", "Erie", "St. Claire"],
+	["Scandinavian capitals at Stockholm, Helsinki, and Copenhagen are all on this sea.", "Black", "Caspian", "Dead", "Baltic", "Baltic"]
 ];
 
-const literature = [];
+const literature = [
+	["This Irish author penned 'The Importance of Being Ernest'.", "James Joyce", "Oscar Wilde", "Lord Byron", "William Shakespeare", "Oscar Wilde"],
+	["This novel by Nabokov was banned for it's depiction of taboo relationships.", "Metamorphosis", "War and Peace", "Lolita", "Sound and the Fury", "Lolita"],
+	["Sylvia Plath wrote this novel that focused on a realistic depiction of depression.", "The Bell Jar", "Gravity's Rainbow", "The Call of Cthulhu", "Of Mice and Men", "The Bell Jar"],
+	["This English philologist wrote 'The Hobbit', and studied Beowulf translations.", "A.A. Milne", "J.R.R. Tolkien", "G.R.R. Martin", "J.K. Rowling", "J.R.R. Tolkien"],
+	["Hemingway's 'For Whom the Bell Tolls' follows the struggles of revolutionaries in which country's civil war?", "Spain", "Italy", "Turkey", "Portugal", "Spain"],
+	["Anthony Burgess famously did not want to be remembered for this iconic novel.", "Opus Posthumous", "A Clockwork Orange", "Frankenstein", "The Man In the High Castle", "A Clockwork Orange"],
+	["Ridley Scott owes much of his film 'Blade Runner' to this author.", "Marquis de Sade", "Stephen King", "Philip K. Dick", "Mary Shelley", "Philip K. Dick"],
+	["Bram Stoker wrote this cultural landmark in an epistolary style.", "Dracula", "Alice in Wonderland", "The Hatchet", "Treasure Island", "Dracula"],
+	["'The Lion, the Witch, and the Wardrobe' is the product of this English author and theologian.", "Lewis Carroll", "Daniel Day-Lewis", "Lewis & Clark", "C.S. Lewis", "C.S. Lewis"],
+	["Synonymous with the genre of 'cosmic horror', this American writer created the Cthulhu mythos.", "H.P. Lovecraft", "Stephen King", "Thomas Pynchon", "Edgar Allen Poe", "H.P. Lovecraft"]
+];
 
-const history = [];
+const history = [
+	["William of Normandy invaded England at the famous Battle of ______", "The Bulge", "Boyne", "Hastings", "Britain", "Hastings"],
+	["This U.S. president guided construction of the Panama Canal and Mount Rushmore.", "Carter", "Carver", "Roosevelt", "Lincoln", "Roosevelt"],
+	["The Protestant Reformation began with this rebellious priest.", "Jan Hus", "Martin Luther", "Antonio Vivaldi", "Friar Tuck", "Martin Luther"],
+	["Invading Huns and Germanic tribes led some Italians to board their boats and found this Italian city.", "Palermo", "Naples", "Rome", "Venice", "Venice"],
+	["Constantinople and Byzantium are both old names for this Turkish city.", "Ankara", "Athens", "Istanbul", "Cyprus", "Istanbul"],
+	["The re-imagination of the cotton gin by this American inventor changed American history.", "Thomas Edision", "Eli Whitney", "Charles Babbage", "Lewis Howard Latimer", "Eli Whitney"],
+	["These Russian revolutionaries seized power in 1917 and began the Soviet era.", "Bolsheviks", "Mensheviks", "Stalinists", "KGB", "Bolsheviks"],
+	["This Chinese politician is credited as the father of Chinese communism.", "Zhou Enlai", "Zhao Lijian", "Xi Jinping", "Mao Zedong", "Mao Zedong"],
+	["Remembered as a traitor, this American officer switched sides in 1780.", "Benedict Arnold", "George Washington", "James Livingston", "John Butler", "Benedict Arnold"],
+	["This landmark English legal document significantly reduced royal influence and guaranteed church rights.", "Treaty of Versailles", "Treaty of Westminster", "Balkan Pact", "Magna Carta", "Magna Carta"]
+];
 
 //----MANAGING CSS+ELEMENTS
 const toggleDropdown = () => {
@@ -29,12 +60,20 @@ const removeLuckStamp = () => {
 	$("#splashfade").remove();
 }
 
-//----MANAGING JS LOGIC
+const reconstructStamp = () => {
+	//RECONSTRUCT THE SPLASHFADE
+	const newSplashFade = document.createElement('span');
+	newSplashFade.textContent = "shall we try again?";
+	newSplashFade.setAttribute("id", "splashfade");
+	newSplashFade.setAttribute("class", "hide");
+	$("#mainsplash").appendChild(newSplashFade);
+}
+
+//----MANAGING THE GAME
 const chooseRandomQuestion = (questions) => {
 	let random = Math.floor(Math.random() * questions.length);
 	return questions[random];
 }
-
 
 const checkAnswer = (evt, question) => {
 	//CHECK USER'S CHOICE AGAINST CORRECT VALUE
@@ -47,7 +86,7 @@ const checkAnswer = (evt, question) => {
 
 	//IF THE QUIZ IS OVER, ROLL THE CREDITS
 	//IF NOT, DO HOUSEKEEPING AND MOVE ON
-	if(correctAnswers + wrongAnswers == 2){
+	if(correctAnswers + wrongAnswers == 10){
 		cleanUp();
 	}else{
 		removeQuestion(question)
@@ -96,12 +135,7 @@ const updateScore = () => {
 
 
 const cleanUp = () => {
-	//RECONSTRUCT THE SPLASHFADE
-	const newSplashFade = document.createElement('span');
-	newSplashFade.textContent = "shall we try again?";
-	newSplashFade.setAttribute("id", "splashfade");
-	newSplashFade.setAttribute("class", "hide");
-	$("#mainsplash").appendChild(newSplashFade);
+	reconstructStamp();
 
 	//PRINT OUT PARTING SCREEN
 	let up = "\u25B2";
@@ -119,13 +153,12 @@ const cleanUp = () => {
 }
 
 
-//---------------
 const setUpQuiz = (evt) => {
 	//ZERO EVERYTHING OUT
 	removeMenu();
 	removeLuckStamp();
-	$("#score").textContent = "";
 	questions = [];
+	question = [];
 	correctAnswers = 0;
 	wrongAnswers = 0;
 	updateScore();
@@ -141,17 +174,9 @@ const setUpQuiz = (evt) => {
 
 	updateQuestions();
 
-	//CREATES EVENT HANDLERS FOR ALL THE ANSWER BOXES
-	const elements = document.querySelectorAll(".questionBox");
-	elements.forEach(element => {
-		element.addEventListener("click", (e) =>{
-			checkAnswer(e, question);
-		});
-	})
-
-
-
 }
+
+
 
 //ON PAGE LOAD, GET READY
 document.addEventListener("DOMContentLoaded", () => {
@@ -159,5 +184,13 @@ document.addEventListener("DOMContentLoaded", () => {
 	$("#geo").addEventListener("click", setUpQuiz);
 	$("#lit").addEventListener("click", setUpQuiz);
 	$("#his").addEventListener("click", setUpQuiz);
+
+	//CREATES EVENT HANDLERS FOR ALL THE ANSWER BOXES
+	const elements = document.querySelectorAll(".questionBox");
+	elements.forEach(element => {
+	element.addEventListener("click", (e) =>{
+		checkAnswer(e, question);
+	});
+})
 	
 });
