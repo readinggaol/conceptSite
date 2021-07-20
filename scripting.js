@@ -2,10 +2,13 @@
 
 const $ = (selector) => document.querySelector(selector);
 
+
+//----GLOBAL (REGRETTABLY FLEXIBLE) VARIABLES
 let questions = [];
 let question = [];
 let correctAnswers = 0;
 let wrongAnswers = 0;
+
 
 //----QUESTION BANKS
 const geography = [
@@ -16,7 +19,7 @@ const geography = [
 	["While not the largest by surface area, this freshwater lake is the largest by volume.", "Superior", "Baikal", "Chad", "Victoria", "Baikal"],
 	["Pakistan enjoys the fruits of this historically significant river.", "Indus", "Rhine", "Amazon", "Yangtze", "Indus"],
 	["The sandstone formation called Uluru is significant to the aboriginal peoples of this country.", "New Zealand", "Philippines", "Indonesia", "Australia", "Australia"],
-	["Kishasa and Brazzaville sit on opposite sides of this powerful African river.", "Congo", "Nile", "Ubangi", "Zambezi", "Congo"],
+	["Kinshasa and Brazzaville sit on opposite sides of this powerful African river.", "Congo", "Nile", "Ubangi", "Zambezi", "Congo"],
 	["Which of these lakes failed to inherit the moniker of 'Great'?", "Superior", "St. Claire", "Michigan", "Erie", "St. Claire"],
 	["Scandinavian capitals at Stockholm, Helsinki, and Copenhagen are all on this sea.", "Black", "Caspian", "Dead", "Baltic", "Baltic"]
 ];
@@ -40,12 +43,13 @@ const history = [
 	["The Protestant Reformation began with this rebellious priest.", "Jan Hus", "Martin Luther", "Antonio Vivaldi", "Friar Tuck", "Martin Luther"],
 	["Invading Huns and Germanic tribes led some Italians to board their boats and found this Italian city.", "Palermo", "Naples", "Rome", "Venice", "Venice"],
 	["Constantinople and Byzantium are both old names for this Turkish city.", "Ankara", "Athens", "Istanbul", "Cyprus", "Istanbul"],
-	["The re-imagination of the cotton gin by this American inventor changed American history.", "Thomas Edision", "Eli Whitney", "Charles Babbage", "Lewis Howard Latimer", "Eli Whitney"],
+	["The re-imagination of the cotton gin by this American inventor changed American history.", "Thomas Edison", "Eli Whitney", "Charles Babbage", "Lewis Howard Latimer", "Eli Whitney"],
 	["These Russian revolutionaries seized power in 1917 and began the Soviet era.", "Bolsheviks", "Mensheviks", "Stalinists", "KGB", "Bolsheviks"],
 	["This Chinese politician is credited as the father of Chinese communism.", "Zhou Enlai", "Zhao Lijian", "Xi Jinping", "Mao Zedong", "Mao Zedong"],
 	["Remembered as a traitor, this American officer switched sides in 1780.", "Benedict Arnold", "George Washington", "James Livingston", "John Butler", "Benedict Arnold"],
 	["This landmark English legal document significantly reduced royal influence and guaranteed church rights.", "Treaty of Versailles", "Treaty of Westminster", "Balkan Pact", "Magna Carta", "Magna Carta"]
 ];
+
 
 //----MANAGING CSS+ELEMENTS
 const toggleDropdown = () => {
@@ -69,7 +73,30 @@ const reconstructStamp = () => {
 	$("#mainsplash").appendChild(newSplashFade);
 }
 
+
 //----MANAGING THE GAME
+const setUpQuiz = (evt) => {
+	//ZERO EVERYTHING OUT
+	removeMenu();
+	removeLuckStamp();
+	questions = [];
+	question = [];
+	correctAnswers = 0;
+	wrongAnswers = 0;
+	updateScore();
+
+	//CATCH ID OF CLICKED OPTION
+	if(evt.target.id == "geo"){
+		questions = geography;
+	}else if(evt.target.id == "lit"){
+		questions = literature;
+	}else if(evt.target.id == "his"){
+		questions = history;
+	}
+
+	updateQuestions();
+}
+
 const chooseRandomQuestion = (questions) => {
 	let random = Math.floor(Math.random() * questions.length);
 	return questions[random];
@@ -92,9 +119,7 @@ const checkAnswer = (evt, question) => {
 		removeQuestion(question)
 		updateQuestions();
 		updateScore();
-	}
-
-	
+	}	
 }
 
 const removeQuestion = (question) => {
@@ -123,69 +148,82 @@ const updateQuestions = () => {
 	$("#Q2").textContent = question[2];
 	$("#Q3").textContent = question[3];
 	$("#Q4").textContent = question[4];
-
 }
 
 const updateScore = () => {
-	let up = "\u25B2";
-	let down = "\u25BC";
-	var scoreString = `${up}: ${correctAnswers}   ${down}: ${wrongAnswers}`;
-	$("#score").textContent = scoreString;
-}
+	//REMOVE OLD SCORE
+	$("#score").textContent = "";
 
+
+	//CONSTRUCT SPAN ELEMENTS FOR COLORED ARROWS AND SCORES
+	const upArrow = document.createElement('span');
+	upArrow.textContent = "\u25B2";
+	upArrow.setAttribute("id", "uparrow");
+	upArrow.setAttribute("class", "uparrow");
+
+	const downArrow = document.createElement('span');
+	downArrow.textContent = "\u25BC";
+	downArrow.setAttribute("id", "downarrow");
+	downArrow.setAttribute("class", "downarrow");
+
+	const correct = document.createElement('span');
+	correct.textContent = `: ${correctAnswers} `;
+
+	const wrong = document.createElement('span');
+	wrong.textContent = `: ${wrongAnswers}`;
+
+	//APPEND ALL NEW ELEMENTS TO THE SCORE TAG
+	$("#score").appendChild(upArrow);
+	$("#score").appendChild(correct);
+	$("#score").appendChild(downArrow);
+	$("#score").appendChild(wrong);
+}
 
 const cleanUp = () => {
 	reconstructStamp();
 
-	//PRINT OUT PARTING SCREEN
-	let up = "\u25B2";
-	let down = "\u25BC";
+	//----CONSTRUCT ARROWS
+	const upArrow = document.createElement('span');
+	upArrow.textContent = "\u25B2";
+	upArrow.setAttribute("id", "uparrow");
+	upArrow.setAttribute("class", "uparrow");
+
+	const downArrow = document.createElement('span');
+	downArrow.textContent = "\u25BC";
+	downArrow.setAttribute("id", "downarrow");
+	downArrow.setAttribute("class", "downarrow");
+
+	//----SET UP PARTING SCREEN
 	let score = `${correctAnswers * 10}%`
 	let partingMessage = `Quiz completed with ${score} correct!`;
 	
+
+	//----REMOVE TEXT CONTENT FROM ARROW LOCATIONS
+	$("#Q1").textContent = "";
+	$("#Q2").textContent = "";
+
+	//----REMOVE HOVER EFFECTS FROM ANSWER BOXES
+	$("#Q1").classList.toggle("questionBox.p:hover");
+
+
+	//----INSERT SCORE VALUES
 	$("#score").textContent = "";
 	$("#question").textContent = partingMessage;
-	$("#Q1").textContent = up;
-	$("#Q2").textContent = down;
+	$("#Q1").appendChild(upArrow);
+	$("#Q2").appendChild(downArrow);
 	$("#Q3").textContent = correctAnswers;
 	$("#Q4").textContent = wrongAnswers;
-
 }
 
 
-const setUpQuiz = (evt) => {
-	//ZERO EVERYTHING OUT
-	removeMenu();
-	removeLuckStamp();
-	questions = [];
-	question = [];
-	correctAnswers = 0;
-	wrongAnswers = 0;
-	updateScore();
-
-	//CATCH ID OF CLICKED OPTION
-	if(evt.target.id == "geo"){
-		questions = geography;
-	}else if(evt.target.id == "lit"){
-		questions = literature;
-	}else if(evt.target.id == "his"){
-		questions = history;
-	}
-
-	updateQuestions();
-
-}
-
-
-
-//ON PAGE LOAD, GET READY
+//----ON PAGE LOAD, GET READY
 document.addEventListener("DOMContentLoaded", () => {
 	$("#quizdrop").addEventListener("click", toggleDropdown);
 	$("#geo").addEventListener("click", setUpQuiz);
 	$("#lit").addEventListener("click", setUpQuiz);
 	$("#his").addEventListener("click", setUpQuiz);
 
-	//CREATES EVENT HANDLERS FOR ALL THE ANSWER BOXES
+	//----CREATES EVENT HANDLERS FOR ALL THE ANSWER BOXES
 	const elements = document.querySelectorAll(".questionBox");
 	elements.forEach(element => {
 	element.addEventListener("click", (e) =>{
