@@ -97,6 +97,32 @@ const setUpQuiz = (evt) => {
 	updateQuestions();
 }
 
+const pauseForFeedback = () => {
+	let answerText = $("#question");
+	let continueButton = document.createElement("img");
+	continueButton.src = "chevron.png";
+	continueButton.id = "chevron";
+	answerText.parentNode.insertBefore(continueButton, answerText.nextSibling);
+
+	$("#chevron").addEventListener("click", nextQuestion);
+
+}
+
+const nextQuestion = () => {
+	$("#chevron").remove();
+	$("#image").src = "clip.png";
+
+	// IF THE QUIZ IS OVER, ROLL THE CREDITS
+	// IF NOT, DO HOUSEKEEPING AND MOVE ON
+	if(correctAnswers + wrongAnswers == 10){
+		cleanUp();
+	}else{
+		removeQuestion(question)
+		updateQuestions();
+		updateScore();
+	}
+}
+
 const chooseRandomQuestion = (questions) => {
 	let random = Math.floor(Math.random() * questions.length);
 	return questions[random];
@@ -107,19 +133,16 @@ const checkAnswer = (evt, question) => {
 	let userAnswer = evt.target.textContent;
 	if(question[5] == userAnswer){
 		correctAnswers += 1;
+		$("#image").src = "check.png";
+		$("#question").textContent = "Correct! Well done!";
 	}else{
 		wrongAnswers += 1;
+		$("#image").src = "ex.png";
+		$("#question").textContent = `Incorrect. The correct answer was: ${question[5]}`;
 	}
 
-	//IF THE QUIZ IS OVER, ROLL THE CREDITS
-	//IF NOT, DO HOUSEKEEPING AND MOVE ON
-	if(correctAnswers + wrongAnswers == 10){
-		cleanUp();
-	}else{
-		removeQuestion(question)
-		updateQuestions();
-		updateScore();
-	}	
+	pauseForFeedback();
+	
 }
 
 const removeQuestion = (question) => {
@@ -201,10 +224,6 @@ const cleanUp = () => {
 	//----REMOVE TEXT CONTENT FROM ARROW LOCATIONS
 	$("#Q1").textContent = "";
 	$("#Q2").textContent = "";
-
-	//----REMOVE HOVER EFFECTS FROM ANSWER BOXES
-	$("#Q1").classList.toggle("questionBox.p:hover");
-
 
 	//----INSERT SCORE VALUES
 	$("#score").textContent = "";

@@ -159,7 +159,7 @@ the whole page and holds the header/main/footer inside of it */
 /*----SECOND LARGE BOX----*/
 .splash{
 	display: grid;
-	grid-template-columns: 1fr 3fr;
+	grid-template-columns: 1fr 3fr .5fr;
 	background-image: var(--koh-background);	
 	font-family: Open Sans, sans-serif;
 	text-align: center;
@@ -221,13 +221,23 @@ the whole page and holds the header/main/footer inside of it */
 }
 .questionBox p:hover{
 	cursor: pointer;
-	color: white;
-	font-size: 1.2em;
+	color: black;
+	font-size: 1.15em;
+	padding-bottom: 0;
+	transition: .5s;
+	background: -webkit-linear-gradient(360deg, #84FFC9, #AAB2FF, #ECA0FF);
 	/* background-color: rgb(32, 59, 75); */
-	background-color: darkslategray;
-	text-decoration: underline;
+	/* background-color: darkslategray; */
 }
 
+#chevron {
+	width: 1.5em;
+}
+
+#chevron:hover{
+	width: 1.6em;
+	transition: .6s;
+}
 
 /*----BOTTOM----*/
 .footer{
