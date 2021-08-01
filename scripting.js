@@ -105,18 +105,64 @@ const pauseForFeedback = () => {
 	answerText.parentNode.insertBefore(continueButton, answerText.nextSibling);
 
 	$("#chevron").addEventListener("click", nextQuestion);
+	removeQuestionBoxes();
+}
 
+const removeQuestionBoxes = () => {
+	//REMOVE QUESTIONS TO AVOID DOUBLE-CLICKS
+	//CAN'T REMOVE LISTENERS ON ANONYMOUS FUNCTIONS
+	const elements = document.querySelectorAll(".questionBox");
+	elements.forEach(element => {
+		element.remove();
+	})
+
+}
+
+//CREATES THE QUESTION BOXES AND TAKES A BOOLEAN TRUE/FALSE
+//IF TRUE, IF IT WILL ALSO CREATE THE LISTENERS
+const createQuestionBoxes = (boolean) => {
+	let box = document.createElement("div");
+		box.id = "questionBox";
+		box.classList.add("questionBox");
+		let Q1 = document.createElement("p");
+		Q1.id = "Q1";
+		let Q2 = document.createElement("p");
+		Q2.id = "Q2";
+		let Q3 = document.createElement("p");
+		Q3.id = "Q3";
+		let Q4 = document.createElement("p");
+		Q4.id = "Q4";
+	
+		$("#image").parentNode.parentNode.appendChild(box);
+	
+		box.appendChild(Q1);
+		box.appendChild(Q2);
+		box.appendChild(Q3);
+		box.appendChild(Q4);
+	
+	if(boolean){
+		//----CREATES EVENT HANDLERS FOR ALL THE ANSWER BOXES
+		const elements = document.querySelectorAll(".questionBox");
+		elements.forEach(element => {
+		element.addEventListener("click", (e) =>{
+			checkAnswer(e, question);
+			});
+		})
+	}
 }
 
 const nextQuestion = () => {
 	$("#chevron").remove();
 	$("#image").src = "clip.png";
-
+	
 	// IF THE QUIZ IS OVER, ROLL THE CREDITS
 	// IF NOT, DO HOUSEKEEPING AND MOVE ON
 	if(correctAnswers + wrongAnswers == 10){
+		createQuestionBoxes(false);
 		cleanUp();
 	}else{
+		
+		createQuestionBoxes(true);
 		removeQuestion(question)
 		updateQuestions();
 		updateScore();
@@ -247,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	elements.forEach(element => {
 	element.addEventListener("click", (e) =>{
 		checkAnswer(e, question);
-	});
-})
+		});
+	})
 	
 });
