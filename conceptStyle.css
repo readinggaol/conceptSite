@@ -243,3 +243,11 @@ the whole page and holds the header/main/footer inside of it */
 .footer{
 	background-color: rgb(26 23 23);
 }
+
+@media only screen and (max-width: 800px){
+	.questionBox{
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr 1fr 1fr;
+	}
+}
