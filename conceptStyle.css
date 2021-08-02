@@ -235,7 +235,7 @@ the whole page and holds the header/main/footer inside of it */
 }
 
 #chevron:hover{
-	width: 1.6em;
+	/* width: 1.6em; */
 	transition: .6s;
 }
 

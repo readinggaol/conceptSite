@@ -27,12 +27,12 @@ const geography = [
 const literature = [
 	["This Irish author penned 'The Importance of Being Ernest'.", "James Joyce", "Oscar Wilde", "Lord Byron", "William Shakespeare", "Oscar Wilde"],
 	["This novel by Nabokov was banned for it's depiction of taboo relationships.", "Metamorphosis", "War and Peace", "Lolita", "Sound and the Fury", "Lolita"],
-	["Sylvia Plath wrote this novel that focused on a realistic depiction of depression.", "The Bell Jar", "Gravity's Rainbow", "The Call of Cthulhu", "Of Mice and Men", "The Bell Jar"],
+	["Sylvia Plath wrote this novel that focused on a realistic depiction of depression.", "The Bell Jar", "Gravity's Rainbow", "Call of Cthulhu", "Of Mice and Men", "The Bell Jar"],
 	["This English philologist wrote 'The Hobbit', and studied Beowulf translations.", "A.A. Milne", "J.R.R. Tolkien", "G.R.R. Martin", "J.K. Rowling", "J.R.R. Tolkien"],
 	["Hemingway's 'For Whom the Bell Tolls' follows the struggles of revolutionaries in which country's civil war?", "Spain", "Italy", "Turkey", "Portugal", "Spain"],
 	["Anthony Burgess famously did not want to be remembered for this iconic novel.", "Opus Posthumous", "A Clockwork Orange", "Frankenstein", "The Man In the High Castle", "A Clockwork Orange"],
 	["Ridley Scott owes much of his film 'Blade Runner' to this author.", "Marquis de Sade", "Stephen King", "Philip K. Dick", "Mary Shelley", "Philip K. Dick"],
-	["Bram Stoker wrote this cultural landmark in an epistolary style.", "Dracula", "Alice in Wonderland", "The Hatchet", "Treasure Island", "Dracula"],
+	["Bram Stoker wrote this cultural landmark in an epistolary style.", "Dracula", "Peter Rabbit", "Rumplestiltskin", "Treasure Island", "Dracula"],
 	["'The Lion, the Witch, and the Wardrobe' is the product of this English author and theologian.", "Lewis Carroll", "Daniel Day-Lewis", "Lewis & Clark", "C.S. Lewis", "C.S. Lewis"],
 	["Synonymous with the genre of 'cosmic horror', this American writer created the Cthulhu mythos.", "H.P. Lovecraft", "Stephen King", "Thomas Pynchon", "Edgar Allen Poe", "H.P. Lovecraft"]
 ];
@@ -61,7 +61,11 @@ const removeMenu = () => {
 }
 
 const removeLuckStamp = () => {
-	$("#splashfade").remove();
+	let check = $("#splashfade");
+	if(check !== null){
+		$("#splashfade").remove();
+	}
+
 }
 
 const reconstructStamp = () => {
@@ -77,6 +81,8 @@ const reconstructStamp = () => {
 //----MANAGING THE GAME
 const setUpQuiz = (evt) => {
 	//ZERO EVERYTHING OUT
+	removeQuestionBoxes();
+	createQuestionBoxes(true);
 	removeMenu();
 	removeLuckStamp();
 	questions = [];
@@ -287,13 +293,4 @@ document.addEventListener("DOMContentLoaded", () => {
 	$("#geo").addEventListener("click", setUpQuiz);
 	$("#lit").addEventListener("click", setUpQuiz);
 	$("#his").addEventListener("click", setUpQuiz);
-
-	//----CREATES EVENT HANDLERS FOR ALL THE ANSWER BOXES
-	const elements = document.querySelectorAll(".questionBox");
-	elements.forEach(element => {
-	element.addEventListener("click", (e) =>{
-		checkAnswer(e, question);
-		});
-	})
-	
 });
